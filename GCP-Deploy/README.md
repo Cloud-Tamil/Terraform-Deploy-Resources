@@ -3,12 +3,13 @@
 This repository contains Terraform code to deploy a complete, basic GCP environment. All resources are defined in separate `.tf` files but are managed under a **single state file**. 
 
 ## 🏗 Resources Created
-- **VPC & Subnet** (`vpc.tf`)
+- **VPC & Subnet** (`vpc.tf`) - Includes secondary IPs for GKE
 - **Firewall Rules** (`firewall.tf`) - SSH & HTTP
 - **Compute Engine VM** (`compute.tf`) - Debian 12 with Nginx
 - **Cloud Storage Bucket** (`storage.tf`)
 - **Service Account & IAM** (`iam.tf`)
 - **Cloud Run Service** (`cloud_run.tf`) - Serverless container
+- **GKE Cluster** (`gke.tf`) - Kubernetes cluster with 1 spot node
 
 ## ✅ Prerequisites
 
@@ -28,11 +29,12 @@ gcloud auth application-default login
 # 2. Set your project
 gcloud config set project YOUR_PROJECT_ID
 
-# 3. Enable required APIs
+# 3. Enable required APIs (Notice container.googleapis.com added)
 gcloud services enable compute.googleapis.com \
                        storage.googleapis.com \
                        iam.googleapis.com \
-                       run.googleapis.com
+                       run.googleapis.com \
+                       container.googleapis.com
 ```
 
 ## ⚙️ Configuration
@@ -61,8 +63,18 @@ terraform plan
 # Deploy the resources
 terraform apply -auto-approve
 ```
+*(Note: GKE cluster creation can take 5-10 minutes to complete).*
 
-After deployment, Terraform will output the VM IP, Bucket Name, and Cloud Run URL.
+### 🔑 Connect to the GKE Cluster
+After deployment, connect `kubectl` to your new cluster:
+
+```bash
+# Get credentials
+gcloud container clusters get-credentials $(terraform output -raw gke_cluster_name) --zone $(terraform output -raw gke_cluster_location)
+
+# Test it!
+kubectl get nodes
+```
 
 ### Test the VM
 ```bash
@@ -92,4 +104,5 @@ terraform destroy -auto-approve
 
 ## 💰 Cost Warning
 - The `e2-micro` VM, empty GCS bucket, and minimal Cloud Run usage are generally **Free Tier eligible**.
+- **GKE Cost:** A GKE cluster has a flat management fee (approx $0.10/hour, though one zonal cluster per billing account is often free under the GCP Free Tier). The `e2-small` spot instance is very cheap, but **not free**.
 - **Always run `terraform destroy`** when you are finished to prevent unexpected billing.
