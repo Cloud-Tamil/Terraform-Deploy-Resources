@@ -147,6 +147,32 @@ Your IAM identity must be able to create/modify:
 Configure credentials in **one** of these ways:
 
 ```bash
+# 1. Set Terraform version
+export TERRAFORM_VERSION=1.9.8
+
+# 2. Go to /tmp
+cd /tmp
+
+# 3. Download Terraform
+curl -O https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# 4. Install unzip if available
+unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# 5. Create a personal bin directory
+mkdir -p $HOME/bin
+
+# 6. Move Terraform binary
+mv terraform $HOME/bin/
+
+# 7. Add $HOME/bin to PATH
+export PATH=$HOME/bin:$PATH
+
+# 8. Verify installation
+terraform -version
+```
+
+```bash
 # Option 1 — AWS CLI profile (recommended)
 aws configure --profile cloudtamil
 export AWS_PROFILE=cloudtamil
