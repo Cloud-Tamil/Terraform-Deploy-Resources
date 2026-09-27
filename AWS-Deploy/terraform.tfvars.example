@@ -1,0 +1,19 @@
+aws_region    = "us-east-1"
+project_name  = "demo"
+environment   = "Test"
+vpc_cidr      = "10.0.0.0/16"
+instance_type = "t3.micro"
+
+# ⚠️ TESTING ONLY: 0.0.0.0/0 opens SSH to the entire internet.
+# For even a quick test, prefer your own IP:
+#   curl https://checkip.amazonaws.com
+# Then set: allowed_ssh_cidr = "YOUR.IP.HERE/32"
+allowed_ssh_cidr = "0.0.0.0/0"
+
+# Optional: existing EC2 Key Pair name (must already exist in the region)
+# If omitted, use SSM Session Manager instead of SSH:
+# aws ssm start-session --target <instance-id>
+# key_name = "my-aws-key"
+
+# ECS sample service — fine to keep on for a test stack
+enable_ecs_sample_service = true
