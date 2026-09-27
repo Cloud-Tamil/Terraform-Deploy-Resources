@@ -1,5 +1,5 @@
 variable "project_id" {
-  description = "GCP project ID"
+  description = "GCP Project ID"
   type        = string
 }
 
@@ -16,13 +16,13 @@ variable "zone" {
 }
 
 variable "prefix" {
-  description = "Prefix for all resource names"
+  description = "Prefix for all resources"
   type        = string
   default     = "demo"
 }
 
 variable "machine_type" {
-  description = "Compute Engine machine type"
+  description = "VM machine type"
   type        = string
-  default     = "e2-micro"   # free-tier eligible
+  default     = "e2-micro" # Free tier eligible
 }
