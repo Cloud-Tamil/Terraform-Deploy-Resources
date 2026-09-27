@@ -142,9 +142,7 @@ All resources are tagged (`Project`, `Environment`, `ManagedBy`, `Repository`) v
 Your IAM identity must be able to create/modify:
 `ec2:*`, `vpc:*`, `iam:*` (roles, policies, instance profiles), `s3:*`, `ecs:*`, `logs:*`, `ssm:*`.
 
-### AWS Credentials
-
-Configure credentials in **one** of these ways:
+### Terraform install 
 
 ```bash
 # 1. Set Terraform version
@@ -171,6 +169,9 @@ export PATH=$HOME/bin:$PATH
 # 8. Verify installation
 terraform -version
 ```
+### AWS Credentials
+
+Configure credentials in **one** of these ways:
 
 ```bash
 # Option 1 — AWS CLI profile (recommended)
