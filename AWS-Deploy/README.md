@@ -1,4 +1,4 @@
-# 🚀 Cloud Tamil — Terraform AWS Multi-Tier Infrastructure
+# 🚀 Terraform AWS Multi-Tier Infrastructure
 
 A **single-command, zero-waste, fully destroyable** AWS infrastructure stack built with Terraform.  
 Deploys a custom VPC, EC2 web server with live metadata dashboard, S3 storage, IAM roles, and a Fargate ECS cluster running a sample Nginx container — all torn down cleanly with `terraform destroy`.
